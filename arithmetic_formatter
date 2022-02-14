@@ -1,0 +1,75 @@
+import re
+
+"""arithmetic_arranger(["32 + 8", "1 - 3801", "9999 + 9999", "523 - 49"], True)
+
+      32         1      9999      523
+    +  8    - 3801    + 9999    -  49
+    ----    ------    ------    -----
+      40     -3800     19998      474 """
+    
+    
+
+
+def arithmetic_arranger(problems, result= False):
+   
+
+    #Search for * or / 
+    for i in range(len(problems)):
+        oper = problems[i]
+        if ('*' in oper or '/' in oper):
+          break
+   
+    
+        
+    #Couting digits
+    val_dig = 0
+    for i in range(len(problems)):
+        leng = problems[i]
+        num_list = re.split("\s", leng)
+        if (len(num_list[0]) > 4 or len(num_list[2]) > 4):
+            val_dig = 5
+            break
+   
+    #is a digit?
+    is_digit = True
+    for i in range(len(problems)):
+        just_digits = problems[i]
+        digits_list = re.split("\s", just_digits)
+        if (digits_list[0].isdigit() == False):
+            is_digit = False
+            break
+        elif (digits_list[2].isdigit() == False):
+            is_digit = False
+            break
+         
+    def formater(_problems):
+        fi_l = list()
+        for i in range(len(_problems)):
+            digs = _problems[i]
+            digs_list = re.split("\s", digs)
+            print(digs_list)
+            fi_l.append(digs_list)
+        return("Return 0")
+        
+                       
+        
+      
+    #Selector
+    if (len(problems) > 5):
+        arranged_problems = "Error: Too many problems."
+    elif ('*' in oper or '/' in oper):
+        arranged_problems = "Error: Operator must be '+' or '-'." 
+    elif (val_dig > 4):
+        arranged_problems = "Error: Numbers cannot be more than four digits."       
+      
+    elif (is_digit == False):
+        arranged_problems = "Error: Numbers must only contain digits." 
+    
+    else:
+        arranged_problems = formater(problems)    
+
+   
+    return arranged_problems
+
+print(arithmetic_arranger(["32 + 698", "380 - 2", "45 + 43", "123 + 49","123 - 49"]))    
+
