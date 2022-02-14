@@ -1,3 +1,4 @@
+from operator import le
 import re
 
 """arithmetic_arranger(["32 + 8", "1 - 3801", "9999 + 9999", "523 - 49"], True)
@@ -9,19 +10,20 @@ import re
     
     
 class c_operation:
-    def inicio(self,num_list,validate= False):
+    def inicio(self, num_list = list(),validate= False):
         self.validate = validate
         self.num_list = num_list
-        pos0 = self.num_list[0]
-        pos1 = self.num_list[1]
-        pos2 = self.num_list[2]
-        pos3 ='____'
-        pos4 = self.num_list[1]
-        pos5 = int(self.num_list[0]) + int(self.num_list[2])
-
+        dash = len(self.num_list[0][0]) + len(self.num_list[0][1]) + len(self.num_list[0][2])
+        pos0 = self.num_list[0][0]
+        pos1 = self.num_list[0][1]
+        pos2 = self.num_list[0][2]
+        pos3 ='_' * dash
+        pos4 = self.num_list[0][1]
+        pos5 = int(self.num_list[0][0]) + int(self.num_list[0][2])
+        print(self.num_list)
         oper = ''' 
            {0}
-        {1}{2}
+        {1} {2}
         {3}
         {4}{5}
         '''.format(pos0,pos1,pos2,pos3,pos4,pos5)
@@ -61,10 +63,13 @@ def arithmetic_arranger(problems, result= False):
             break
          
     def formater(_problems):
+        dlist = list() 
         for i in range(len(_problems)):
             digs = _problems[i]
             digs_list = re.split("\s", digs)
-        return(digs_list)
+            dlist.append(digs_list)
+        
+        return(dlist)
         
    #Selector
     if (len(problems) > 5):
@@ -79,7 +84,6 @@ def arithmetic_arranger(problems, result= False):
     
     else:
         split_list = formater(problems)
-        
         arranged_problems = operation.inicio(split_list,result)    
 
    
