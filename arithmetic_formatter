@@ -1,4 +1,3 @@
-from operator import le
 import re
 
 """arithmetic_arranger(["32 + 8", "1 - 3801", "9999 + 9999", "523 - 49"], True)
@@ -10,84 +9,98 @@ import re
     
     
 class c_operation:
-    def inicio(self, num_list = list(),validate= False):
-        self.validate = validate
-        self.num_list = num_list
-        dash = len(self.num_list[0][0]) + len(self.num_list[0][1]) + len(self.num_list[0][2])
-        pos0 = self.num_list[0][0]
-        pos1 = self.num_list[0][1]
-        pos2 = self.num_list[0][2]
-        pos3 ='_' * dash
-        pos4 = self.num_list[0][1]
-        pos5 = int(self.num_list[0][0]) + int(self.num_list[0][2])
-        print(self.num_list)
+    def solve(self, num_list,result= False):
+        self.result = result
+        self.splitlist = num_list
+        self.num_list = list()
+        for i in range(len(self.splitlist)):
+            self.numlist = self.splitlist[i]
+            dash = len(self.num_list[0]) + len(self.num_list[1]) + len(self.num_list[2])
+            pos0 = self.num_list[0]
+            pos1 = self.num_list[1]
+            pos2 = self.num_list[2]
+            pos3 ='_' * dash
+            pos4 = self.num_list[1]
+            pos5 = int(self.num_list[0]) + int(self.num_list[2])
         oper = ''' 
-           {0}
-        {1} {2}
-        {3}
-        {4}{5}
-        '''.format(pos0,pos1,pos2,pos3,pos4,pos5)
+          {0}
+      {1} {2}
+      {3}
+      {4}{5}
+      '''.format(pos0,pos1,pos2,pos3,pos4,pos5)
         return(oper)
+      
         
 
 def arithmetic_arranger(problems, result= False):
+    
 
-    #Object
-    operation = c_operation()
+   #Object
+   operation = c_operation()
 
-   #Search for * or / 
-    for i in range(len(problems)):
+  
+   #Couting digits 
+   def length_number(problems):
+       valid = True
+       for i in range(len(problems)):
+           leng = problems[i]
+           num_list = re.split("\s", leng)
+           if (len(num_list[0]) > 4 or len(num_list[2]) > 4):
+               valid = False
+               break
+       return(valid)     
+   #Search for * or /  
+   def valid_operands(problems):
+       valid = True
+       for i in range(len(problems)):
         oper = problems[i]
         if ('*' in oper or '/' in oper):
-          break
+            valid = False
+            break
+       return(valid) 
+
+        
+   #is a digit?
+   def is_number(problems):
+       is_digit = True
+       for i in range(len(problems)):
+           just_digits = problems[i]
+           digits_list = re.split("\s", just_digits)
+           if (digits_list[0].isdigit() == False):
+               is_digit = False
+               break
+           elif (digits_list[2].isdigit() == False):
+               is_digit = False
+               break
+       return(is_digit)    
+            
    
-   #Couting digits
-    val_dig = 0
-    for i in range(len(problems)):
-        leng = problems[i]
-        num_list = re.split("\s", leng)
-        if (len(num_list[0]) > 4 or len(num_list[2]) > 4):
-            val_dig = 5
-            break
-   
-    #is a digit?
-    is_digit = True
-    for i in range(len(problems)):
-        just_digits = problems[i]
-        digits_list = re.split("\s", just_digits)
-        if (digits_list[0].isdigit() == False):
-            is_digit = False
-            break
-        elif (digits_list[2].isdigit() == False):
-            is_digit = False
-            break
-         
-    def formater(_problems):
+   def formater(problems):
         dlist = list() 
-        for i in range(len(_problems)):
-            digs = _problems[i]
+        for i in range(len(problems)):
+            digs = problems[i]
             digs_list = re.split("\s", digs)
             dlist.append(digs_list)
         
         return(dlist)
         
    #Selector
-    if (len(problems) > 5):
-        arranged_problems = "Error: Too many problems."
-    elif ('*' in oper or '/' in oper):
-        arranged_problems = "Error: Operator must be '+' or '-'." 
-    elif (val_dig > 4):
-        arranged_problems = "Error: Numbers cannot be more than four digits."       
+   if (len(problems) > 5):
+       arranged_problems = "Error: Too many problems."
+   elif (valid_operands(problems)== False):
+       arranged_problems = "Error: Operator must be '+' or '-'." 
+   elif (length_number(problems) == False):
+       arranged_problems = "Error: Numbers cannot be more than four digits."       
       
-    elif (is_digit == False):
-        arranged_problems = "Error: Numbers must only contain digits." 
+   elif (is_number(problems) == False):
+       arranged_problems = "Error: Numbers must only contain digits." 
     
-    else:
+   else:
         split_list = formater(problems)
-        arranged_problems = operation.inicio(split_list,result)    
-
+        arranged_problems =  operation.solve(split_list[0])    
+            
    
-    return arranged_problems
+   return arranged_problems
 
 print(arithmetic_arranger(["32 + 698", "380 - 2", "45 + 43", "123 + 49","123 - 49"]))    
 
