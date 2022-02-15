@@ -20,8 +20,14 @@ class c_operation:
             pos1 = self.split_list[1]
             pos2 = self.split_list[2]
             pos3 ='_' * dash
-            pos4 = self.split_list[1]
-            pos5 = int(self.split_list[0]) + int(self.split_list[2])
+            if (self.split_list[1] == '-'):
+                pos4 = self.split_list[1]
+            else:
+                pos4 = ""
+            if ('+' in self.split_list):
+                pos5 = int(self.split_list[0]) + int(self.split_list[2])
+            else:
+                pos5 = int(self.split_list[0]) - int(self.split_list[2])
         oper = ''' 
           {0}
       {1} {2}
@@ -100,5 +106,5 @@ def arithmetic_arranger(problems, result= False):
    
    return arranged_problems
 
-print(arithmetic_arranger(["32 + 698", "380 - 2", "45 + 43", "123 + 49","123 - 49"]))    
+print(arithmetic_arranger(["32 + 8", "1 - 3801", "9999 + 9999", "523 + 49"]))    
 
