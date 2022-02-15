@@ -9,19 +9,19 @@ import re
     
     
 class c_operation:
-    def solve(self, num_list,result= False):
+    def calc(self, num_list,result= False):
         self.result = result
-        self.splitlist = num_list
-        self.num_list = list()
-        for i in range(len(self.splitlist)):
-            self.numlist = self.splitlist[i]
-            dash = len(self.num_list[0]) + len(self.num_list[1]) + len(self.num_list[2])
-            pos0 = self.num_list[0]
-            pos1 = self.num_list[1]
-            pos2 = self.num_list[2]
+        self.num_list = num_list
+        self.split_list = list()
+        for i in range(len(self.num_list)):
+            self.split_list = self.num_list[i]
+            dash = len(self.split_list[0]) + len(self.split_list[1]) + len(self.split_list[2])
+            pos0 = self.split_list[0]
+            pos1 = self.split_list[1]
+            pos2 = self.split_list[2]
             pos3 ='_' * dash
-            pos4 = self.num_list[1]
-            pos5 = int(self.num_list[0]) + int(self.num_list[2])
+            pos4 = self.split_list[1]
+            pos5 = int(self.split_list[0]) + int(self.split_list[2])
         oper = ''' 
           {0}
       {1} {2}
@@ -35,10 +35,6 @@ class c_operation:
 def arithmetic_arranger(problems, result= False):
     
 
-   #Object
-   operation = c_operation()
-
-  
    #Couting digits 
    def length_number(problems):
        valid = True
@@ -96,8 +92,10 @@ def arithmetic_arranger(problems, result= False):
        arranged_problems = "Error: Numbers must only contain digits." 
     
    else:
-        split_list = formater(problems)
-        arranged_problems =  operation.solve(split_list[0])    
+        num_list = formater(problems)
+        #Object
+        operation = c_operation()
+        arranged_problems =   operation.calc(num_list)    
             
    
    return arranged_problems
