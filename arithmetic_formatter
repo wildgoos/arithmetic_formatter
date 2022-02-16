@@ -13,6 +13,8 @@ class c_operation:
         self.result = result
         self.num_list = num_list
         self.split_list = list()
+        self.oper = ''
+        self.boil = '\n{0}\n{1} {2}\n{3}\n{4}{5}\n'
         for i in range(len(self.num_list)):
             self.split_list = self.num_list[i]
             dash = len(self.split_list[0]) + len(self.split_list[1]) + len(self.split_list[2])
@@ -28,13 +30,8 @@ class c_operation:
                 pos5 = int(self.split_list[0]) + int(self.split_list[2])
             else:
                 pos5 = int(self.split_list[0]) - int(self.split_list[2])
-        oper = ''' 
-          {0}
-      {1} {2}
-      {3}
-      {4}{5}
-      '''.format(pos0,pos1,pos2,pos3,pos4,pos5)
-        return(oper)
+            self.oper = self.oper +  self.boil.format(pos0,pos1,pos2,pos3,pos4,pos5)
+        return(self.oper)
       
         
 
@@ -101,7 +98,8 @@ def arithmetic_arranger(problems, result= False):
         num_list = formater(problems)
         #Object
         operation = c_operation()
-        arranged_problems =   operation.calc(num_list)    
+        arranged_problems =   operation.calc(num_list) 
+           
             
    
    return arranged_problems
