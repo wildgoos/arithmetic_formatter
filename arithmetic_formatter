@@ -9,33 +9,39 @@ import re
     
     
 class c_operation:
-    def calc(self, num_list,result= False):
+    def calc(self, num_list,result):
         self.result = result
         self.num_list = num_list
         self.split_list = list()
         self.oper = ''
-        self.boil = '\n{0}\n{1} {2}\n{3}\n{4}{5}\n'
+        self.boil = '\n{}\n{} {}\n{}\n{}\n'
+        self.largest = None  #Number with more digits
+        self.lesser = None #Small number        
         for i in range(len(self.num_list)):
             self.split_list = self.num_list[i]
-            dash = len(self.split_list[0]) + len(self.split_list[1]) + len(self.split_list[2])
+            #Comparing numbers length
+            if len(self.split_list[0]) > len(self.split_list[2]):
+                self.largest = self.split_list[0]
+            else:
+                self.largest = self.split_list[2]    
+            dash = len(self.largest) + 2 #Add 2 for the sign and the space
             pos0 = self.split_list[0]
             pos1 = self.split_list[1]
             pos2 = self.split_list[2]
             pos3 ='_' * dash
-            if (self.split_list[1] == '-'):
-                pos4 = self.split_list[1]
+            if (self.result == True):
+                if ('+' in self.split_list):
+                    pos5 = int(self.split_list[0]) + int(self.split_list[2])
+                else:
+                    pos5 = int(self.split_list[0]) - int(self.split_list[2])
             else:
-                pos4 = ""
-            if ('+' in self.split_list):
-                pos5 = int(self.split_list[0]) + int(self.split_list[2])
-            else:
-                pos5 = int(self.split_list[0]) - int(self.split_list[2])
-            self.oper = self.oper +  self.boil.format(pos0,pos1,pos2,pos3,pos4,pos5)
+                pos5 = ''
+            self.oper = self.oper +  self.boil.format(pos0,pos1,pos2,pos3,pos5)
         return(self.oper)
       
         
 
-def arithmetic_arranger(problems, result= False):
+def arithmetic_arranger(problems, result = False):
     
 
    #Couting digits 
@@ -59,7 +65,7 @@ def arithmetic_arranger(problems, result= False):
        return(valid) 
 
         
-   #is a digit?
+   #Is a digit?
    def is_number(problems):
        is_digit = True
        for i in range(len(problems)):
@@ -90,7 +96,6 @@ def arithmetic_arranger(problems, result= False):
        arranged_problems = "Error: Operator must be '+' or '-'." 
    elif (length_number(problems) == False):
        arranged_problems = "Error: Numbers cannot be more than four digits."       
-      
    elif (is_number(problems) == False):
        arranged_problems = "Error: Numbers must only contain digits." 
     
@@ -98,11 +103,11 @@ def arithmetic_arranger(problems, result= False):
         num_list = formater(problems)
         #Object
         operation = c_operation()
-        arranged_problems =   operation.calc(num_list) 
+        arranged_problems =   operation.calc(num_list, result) 
            
             
    
    return arranged_problems
 
-print(arithmetic_arranger(["32 + 8", "1 - 3801", "9999 + 9999", "523 + 49"]))    
+print(arithmetic_arranger(["32 + 8", "1 - 3801", "9999 + 9999", "523 + 49"], True))    
 
