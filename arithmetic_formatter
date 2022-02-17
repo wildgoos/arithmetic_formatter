@@ -13,10 +13,11 @@ class c_operation:
         self.result = result
         self.num_list = num_list
         self.split_list = list()
+        self.result_list = list()
         self.oper = ''
-        self.boil = '\n{}\n{} {}\n{}\n{}\n'
         self.largest = None  #Number with more digits
-        self.lesser = None #Small number        
+        self.lesser = None #Small number
+        self.dash = None        
         for i in range(len(self.num_list)):
             self.split_list = self.num_list[i]
             #Comparing numbers length
@@ -24,20 +25,24 @@ class c_operation:
                 self.largest = self.split_list[0]
             else:
                 self.largest = self.split_list[2]    
-            dash = len(self.largest) + 2 #Add 2 for the sign and the space
-            pos0 = self.split_list[0]
+            self.dash = len(self.largest) + 2 #Add 2 for the sign and the space
+            self.boil = '{}\n{} {}\n{}\n{}\n'
+            pos0 = str(self.split_list[0]).rjust(self.dash)
             pos1 = self.split_list[1]
-            pos2 = self.split_list[2]
-            pos3 ='_' * dash
+            pos2 = str(self.split_list[2])
+            pos3 ='_' * self.dash
             if (self.result == True):
                 if ('+' in self.split_list):
-                    pos5 = int(self.split_list[0]) + int(self.split_list[2])
+                    pos4 = str(int(self.split_list[0]) + int(self.split_list[2])).rjust(self.dash)
                 else:
-                    pos5 = int(self.split_list[0]) - int(self.split_list[2])
+                    pos4 = str(int(self.split_list[0]) - int(self.split_list[2])).rjust(self.dash)
             else:
-                pos5 = ''
-            self.oper = self.oper +  self.boil.format(pos0,pos1,pos2,pos3,pos5)
-        return(self.oper)
+                pos4 = ''
+            self.oper = self.oper +  self.boil.format(pos0,pos1,pos2,pos3,pos4) + "    "
+            self.result_list.append(self.oper)
+            
+            
+        return(self.result_list)
       
         
 
@@ -109,5 +114,5 @@ def arithmetic_arranger(problems, result = False):
    
    return arranged_problems
 
-print(arithmetic_arranger(["32 + 8", "1 - 3801", "9999 + 9999", "523 + 49"], True))    
+print(arithmetic_arranger(["32 + 8", "1 - 3801", "9999 + 9999", "523 - 49"], True))    
 
