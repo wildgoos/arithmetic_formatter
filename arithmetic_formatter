@@ -13,11 +13,16 @@ class c_operation:
         self.result = result
         self.num_list = num_list
         self.split_list = list()
-        self.result_list = list()
-        self.oper = ''
+        self.oper = str()
         self.largest = None  #Number with more digits
-        self.lesser = None #Small number
-        self.dash = None        
+        pos0 = str()
+        pos1 = str()
+        pos2 = str()
+        pos3 = str()
+        pos4 = str()
+        sol =  str()
+        self.dash = None
+        self.boil = '{}\n{}{}\n{}\n{}'        
         for i in range(len(self.num_list)):
             self.split_list = self.num_list[i]
             #Comparing numbers length
@@ -26,23 +31,20 @@ class c_operation:
             else:
                 self.largest = self.split_list[2]    
             self.dash = len(self.largest) + 2 #Add 2 for the sign and the space
-            self.boil = '{}\n{} {}\n{}\n{}\n'
-            pos0 = str(self.split_list[0]).rjust(self.dash)
-            pos1 = self.split_list[1]
-            pos2 = str(self.split_list[2])
-            pos3 ='_' * self.dash
             if (self.result == True):
                 if ('+' in self.split_list):
-                    pos4 = str(int(self.split_list[0]) + int(self.split_list[2])).rjust(self.dash)
+                    pos4 = pos4 + str(int(self.split_list[0]) + int(self.split_list[2])) + '    '
                 else:
-                    pos4 = str(int(self.split_list[0]) - int(self.split_list[2])).rjust(self.dash)
+                    pos4 = pos4 + str(int(self.split_list[0]) - int(self.split_list[2])) + '    '
             else:
-                pos4 = ''
-            self.oper = self.oper +  self.boil.format(pos0,pos1,pos2,pos3,pos4) + "    "
-            self.result_list.append(self.oper)
+               pos4 = ''
+            pos0 = pos0 + self.split_list[0] + '    ' 
+            pos1 = pos1 + self.split_list[1] + ' ' + self.split_list[2] + '    '
+            pos3 = pos3 + ('_' * self.dash) + '    '
+        sol = self.boil.format(pos0,pos1,pos2,pos3,pos4)
+        return(sol)
             
-            
-        return(self.result_list)
+        
       
         
 
@@ -85,7 +87,7 @@ def arithmetic_arranger(problems, result = False):
        return(is_digit)    
             
    
-   def formater(problems):
+   def problem_list(problems):
         dlist = list() 
         for i in range(len(problems)):
             digs = problems[i]
@@ -105,7 +107,7 @@ def arithmetic_arranger(problems, result = False):
        arranged_problems = "Error: Numbers must only contain digits." 
     
    else:
-        num_list = formater(problems)
+        num_list = problem_list(problems)
         #Object
         operation = c_operation()
         arranged_problems =   operation.calc(num_list, result) 
