@@ -22,11 +22,16 @@ class c_operation:
         pos4 = str()
         sol =  str()
         self.dash = None
+<<<<<<< Updated upstream
         self.boil = '{}\n{}{}\n{}\n{}'        
+=======
+        self.boil = '{}\n{}\n{}{}\n{}\n'        
+>>>>>>> Stashed changes
         for i in range(len(self.num_list)):
             self.split_list = self.num_list[i]
             #Comparing numbers length
             if len(self.split_list[0]) > len(self.split_list[2]):
+<<<<<<< Updated upstream
                 self.largest = self.split_list[0]
             else:
                 self.largest = self.split_list[2]    
@@ -41,6 +46,23 @@ class c_operation:
             pos0 = pos0 + self.split_list[0] + '    ' 
             pos1 = pos1 + self.split_list[1] + ' ' + self.split_list[2] + '    '
             pos3 = pos3 + ('_' * self.dash) + '    '
+=======
+                self.largest = len(self.split_list[0])
+            else:
+                self.largest = len(self.split_list[2])    
+            self.dash = self.largest + 2 #Add 2 for the sign and the space
+            if (self.result == True):
+                if ('+' in self.split_list):
+                    pos4 = pos4 + str(int(self.split_list[0]) + int(self.split_list[2]))
+                else:
+                    pos4 = pos4 + str(int(self.split_list[0]) - int(self.split_list[2]))
+            else:
+               pos4 = ''
+            pos0 = pos0 + str(self.split_list[0]).rjust(self.dash) + '    '
+            pos1 = pos1 + str(self.split_list[1]) + ' ' + str(self.split_list[2]).rjust(self.largest) + '    '
+            pos3 = pos3 + ('_' * self.dash) + '    '
+            pos4 = pos4.rjust(self.dash) + '     '
+>>>>>>> Stashed changes
         sol = self.boil.format(pos0,pos1,pos2,pos3,pos4)
         return(sol)
             
