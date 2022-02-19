@@ -1,5 +1,6 @@
 import re
 
+
 """arithmetic_arranger(["32 + 8", "1 - 3801", "9999 + 9999", "523 - 49"], True)
 
       32         1      9999      523
@@ -12,7 +13,7 @@ import re
 
 def arithmetic_arranger(problems, result= False):
    
-
+    
     #Search for * or / 
     for i in range(len(problems)):
         oper = problems[i]
@@ -43,13 +44,29 @@ def arithmetic_arranger(problems, result= False):
             break
          
     def formater(_problems):
+        li1 = str()
+        li2 = str()
+        li3 = str()
+        li4 = str()
+        li5 = str()
         fi_l = list()
         for i in range(len(_problems)):
             digs = _problems[i]
             digs_list = re.split("\s", digs)
-            print(digs_list)
+            
             fi_l.append(digs_list)
-        return("Return 0")
+        for i in range(len(fi_l)):
+            if len(fi_l[i][0]) > len(fi_l[i][2]):
+                large = len(fi_l[i][0])
+            else:
+                large = len(fi_l[i][2])
+            dash = large + 2          
+            li1 = li1 + str(fi_l[i][0]).rjust(dash) + '    '
+            li2 = li2 + str(fi_l[i][1]) + ' ' + str(fi_l[i][2]).rjust(large) + '    '
+            li3 = li3 + ('-' * dash) + '    '
+            li4 = li4 + ''
+        sol = li1+ '\n' + li2+'\n' + li3 + li4
+        return(sol)
         
                        
         
@@ -72,4 +89,3 @@ def arithmetic_arranger(problems, result= False):
     return arranged_problems
 
 print(arithmetic_arranger(["32 + 698", "380 - 2", "45 + 43", "123 + 49","123 - 49"]))    
-
